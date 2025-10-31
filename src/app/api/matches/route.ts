@@ -7,6 +7,10 @@ export const revalidate = 60; // Revalidate every 60 seconds
 
 export async function GET(request: NextRequest) {
   try {
+    // Debug: Check if API key is loaded
+    const apiKey = process.env.FOOTBALL_DATA_API_KEY;
+    console.log('🔑 API Key status:', apiKey ? `Loaded (${apiKey.substring(0, 8)}...)` : '❌ NOT FOUND');
+    
     const searchParams = request.nextUrl.searchParams;
     const daysBack = parseInt(searchParams.get('daysBack') || '7', 10);
     const daysForward = parseInt(searchParams.get('daysForward') || '0', 10);

@@ -110,6 +110,9 @@ async function fetchFromAPI(endpoint: string): Promise<any> {
     throw new Error('API key not configured. Please set FOOTBALL_DATA_API_KEY environment variable.');
   }
 
+  console.log(`🌐 Fetching: ${API_BASE_URL}${endpoint}`);
+  console.log(`🔑 Using API Key: ${API_KEY.substring(0, 8)}...`);
+
   const response = await fetch(`${API_BASE_URL}${endpoint}`, {
     headers: {
       'X-Auth-Token': API_KEY,
@@ -117,8 +120,11 @@ async function fetchFromAPI(endpoint: string): Promise<any> {
     next: { revalidate: 60 }, // Cache for 1 minute
   });
 
+  console.log(`📡 Response status: ${response.status} ${response.statusText}`);
+
   if (!response.ok) {
     if (response.status === 401) {
+      console.error('❌ 401 Unauthorized - API key may be invalid or expired');
       throw new Error('Unauthorized: Invalid API key');
     }
     if (response.status === 429) {
