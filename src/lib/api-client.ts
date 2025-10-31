@@ -6,7 +6,12 @@ const getBaseUrl = () => {
   // Browser environment
   if (typeof window !== 'undefined') return '';
   
-  // Server environment - use localhost
+  // Server environment - check for Vercel URL or use localhost for dev
+  if (process.env.VERCEL_URL) {
+    return `https://${process.env.VERCEL_URL}`;
+  }
+  
+  // Local development
   return 'http://localhost:9002';
 };
 

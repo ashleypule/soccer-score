@@ -58,6 +58,12 @@ After redeploying, your app should be able to:
 - Generate AI predictions with real team statistics
 - Display head-to-head data
 
+**IMPORTANT**: The code has been updated to automatically use the correct URL:
+- ✅ In production (Vercel): Uses `https://your-app.vercel.app`
+- ✅ In development: Uses `http://localhost:9002`
+
+This is handled automatically by the `VERCEL_URL` environment variable that Vercel provides.
+
 ### Troubleshooting
 
 If you still see errors:
@@ -77,6 +83,7 @@ If you still see errors:
    - Wrong variable name → Must be exactly `FOOTBALL_DATA_API_KEY`
    - Not redeployed after adding → Redeploy the project
    - API key expired → Get a new one from https://www.football-data.org/
+   - ~~ECONNREFUSED localhost:9002~~ → **FIXED**: Code now automatically uses Vercel URL in production
 
 ### API Key Information
 
