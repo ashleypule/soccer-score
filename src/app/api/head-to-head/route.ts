@@ -5,6 +5,15 @@ const API_KEY = process.env.FOOTBALL_DATA_API_KEY || '';
 
 export async function GET(request: NextRequest) {
   try {
+    // Check if API key is configured
+    if (!API_KEY) {
+      console.error('❌ FOOTBALL_DATA_API_KEY is not set in environment variables');
+      return NextResponse.json(
+        { error: 'API key not configured. Please set FOOTBALL_DATA_API_KEY in environment variables.' },
+        { status: 500 }
+      );
+    }
+
     const searchParams = request.nextUrl.searchParams;
     const homeTeamId = searchParams.get('homeTeamId');
     const awayTeamId = searchParams.get('awayTeamId');
