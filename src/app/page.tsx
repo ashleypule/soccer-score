@@ -7,6 +7,10 @@ import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { AlertCircle } from 'lucide-react';
 import type { Match, League } from '@/lib/types';
 
+// Force dynamic rendering - don't try to build statically
+export const dynamic = 'force-dynamic';
+export const revalidate = 60; // Revalidate every 60 seconds
+
 export default async function Home() {
   let initialMatches: Match[] = [];
   let leagues: League[] = [];

@@ -104,6 +104,12 @@ function mapMatch(match: FootballDataMatch): Match {
 }
 
 async function fetchFromAPI(endpoint: string): Promise<any> {
+  // Validate API key is available
+  if (!API_KEY) {
+    console.error('❌ FOOTBALL_DATA_API_KEY is not configured');
+    throw new Error('API key not configured. Please set FOOTBALL_DATA_API_KEY environment variable.');
+  }
+
   const response = await fetch(`${API_BASE_URL}${endpoint}`, {
     headers: {
       'X-Auth-Token': API_KEY,
@@ -112,6 +118,9 @@ async function fetchFromAPI(endpoint: string): Promise<any> {
   });
 
   if (!response.ok) {
+    if (response.status === 401) {
+      throw new Error('Unauthorized: Invalid API key');
+    }
     if (response.status === 429) {
       throw new Error('API rate limit exceeded. Please try again later.');
     }
